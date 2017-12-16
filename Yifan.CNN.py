@@ -271,14 +271,14 @@ def iter_sent_dataset(sess, filename,  batch_size, shuffle=True,cv=0,test=True):
         
             
 if __name__ == '__main__':
-    '''
+    
     for ii in range(10):
         filename1='data/aimed_cross_validataion'+str(ii+1)+'.txt'
         filename2='data/aimed_cross_validataion'+str(ii+1)+'.tfrecords'
         print(filename1)
         build_tfrecord_data(filename1,filename2)
-        '''
-build_tfrecord_data('data/aimed_cross_validataion10.txt','data/aimed_cross_validataion10.tfrecords')
+
+    #build_tfrecord_data('data/aimed_cross_validataion10.txt','data/aimed_cross_validataion10.tfrecords')
     #build_tfrecord_data('data/aimed_training.txt','data/aimed_training.tfrecords')
     
     #x = tf.placeholder(tf.float32, shape=[None, 320, 354])
