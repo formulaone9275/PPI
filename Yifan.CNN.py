@@ -278,8 +278,8 @@ if __name__ == '__main__':
         print(filename1)
         build_tfrecord_data(filename1,filename2)
         '''
-    #build_tfrecord_data('data/aimed_cross_validataion10.txt','data/aimed_cross_validataion10.tfrecords')
-    build_tfrecord_data('data/aimed_training.txt','data/aimed_training.tfrecords')
+build_tfrecord_data('data/aimed_cross_validataion10.txt','data/aimed_cross_validataion10.tfrecords')
+    #build_tfrecord_data('data/aimed_training.txt','data/aimed_training.tfrecords')
     
     #x = tf.placeholder(tf.float32, shape=[None, 320, 354])
     #y_ = tf.placeholder(tf.float32, shape=[None, 2])
