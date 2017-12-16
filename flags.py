@@ -1,0 +1,22 @@
+import tensorflow as tf
+
+tf.flags.DEFINE_integer('batch_size', 128, 'Training batch size')
+tf.flags.DEFINE_integer('epoch', 20, 'Training epoch')
+tf.flags.DEFINE_integer('emb_dim', 200, 'Size of word embeddings')
+tf.flags.DEFINE_integer('num_kernel', 400, 'Number of filters for each window size')
+tf.flags.DEFINE_integer('min_window', 3, 'Minimum size of filter window')
+tf.flags.DEFINE_integer('max_window', 5, 'Maximum size of filter window')
+tf.flags.DEFINE_float('l2_reg', 1e-4, 'l2 regularization weight')
+tf.flags.DEFINE_float('lr', 1e-3, 'l2 learning rate')
+tf.flags.DEFINE_bool('use_head', False, 'Whether to use head token')
+tf.flags.DEFINE_bool('use_dep', False, 'Whether to use dependency token')
+tf.flags.DEFINE_string('model', 'cnn', 'CNN or LSTM model')
+tf.flags.DEFINE_float('decay_step', 200, 'learning rate decay step')
+tf.flags.DEFINE_float('decay_rate', 0.9, 'learning rate decay rate')
+tf.flags.DEFINE_string('log_dir', 'logs', 'log dir')
+tf.flags.DEFINE_bool('mask_p1p2', False, 'Whether to mask P1 and P2 with _PROTEIN_')
+tf.flags.DEFINE_bool('mask_other', False, 'Whether to mask other entities with _PROTEIN_')
+tf.flags.DEFINE_string('other_encoding', 'entity', 'Encode other entity as normal token or entity')
+
+tf.flags.FLAGS._parse_flags()
+print(sorted(tf.flags.FLAGS.__dict__['__flags'].items()))
