@@ -1,8 +1,8 @@
 from __future__ import print_function
-from data_utils_new import load_sentence_matrix, pad_and_prune_seq
+#from data_utils_new import load_sentence_matrix, pad_and_prune_seq
 import tensorflow as tf
 import numpy as np
-from embedding_utils import VOCAB_SIZE, EMBEDDING
+#from embedding_utils import VOCAB_SIZE, EMBEDDING
 import sklearn as sk
 from glob import glob
 from sklearn.metrics import precision_score, recall_score,f1_score,accuracy_score
@@ -290,29 +290,29 @@ if __name__ == '__main__':
         filters=400,
         kernel_size=[3, 354],
         padding="valid",
-        activation=None)
+        activation=tf.nn.relu)
       
     # Pooling Layer #11
-    #pool11 = tf.layers.max_pooling2d(inputs=conv11, pool_size=[158,1], strides=1)
+    pool11 = tf.layers.max_pooling2d(inputs=conv11, pool_size=[158,1], strides=1)
     # Convolutional Layer #12
     conv12 = tf.layers.conv2d(
         inputs=tf.expand_dims(x2,axis=3),
         filters=400,
         kernel_size=[3, 354],
         padding="valid",
-        activation=None)
+        activation=tf.nn.relu)
 
-    combined_conv = conv11 + conv12
-    combined = tf.nn.relu(combined_conv)
+    #combined_conv = conv11 + conv12
+    #combined = tf.nn.relu(combined_conv)
 
 
     # Pooling Layer
-    pools = tf.layers.max_pooling2d(inputs=combined, pool_size=[158,1], strides=1)
+    pool12 = tf.layers.max_pooling2d(inputs=conv12, pool_size=[158,1], strides=1)
 
-    #pools=tf.concat([pool11,pool12],axis=1)
+    pools=tf.concat([pool11,pool12],axis=1)
     print(pools.get_shape())
     # Dense Layer
-    pool2_flat = tf.reshape(pools, [-1, 400])
+    pool2_flat = tf.reshape(pools, [-1, 800])
     #
     print(pool2_flat.get_shape())
 
