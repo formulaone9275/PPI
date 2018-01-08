@@ -342,7 +342,7 @@ if __name__ == '__main__':
     rec, rec_op = tf.metrics.recall(labels=tf.argmax(y_, 1), predictions=y_p)
     pre, pre_op = tf.metrics.precision(labels=tf.argmax(y_, 1), predictions=y_p) 
     
-    cross_validation=10
+    cross_validation=1
     with tf.Session() as sess:
         
 
@@ -381,6 +381,26 @@ if __name__ == '__main__':
             plt.xlabel('Epoch Time', fontsize=16)
             plt.ylabel('Loss', fontsize=16)
             plt.show()
+
+            #calculate the training F score
+            y_pred_training=[]
+            y_true_training=[]
+            for batch_data in iter_sent_dataset(sess, 'data/aimed_cross_validataion*.tfrecords', 128,True,c,True):
+                input_data_training,label_list_training=batch_data
+                #one way to calculate precision recall F score
+                y_pred_training+=list(y_p.eval(feed_dict={x: input_data_training, y_: label_list_training, keep_prob: 0,IsTraining:False}))
+                y_true_training+=list(y_t.eval(feed_dict={x: input_data_training, y_: label_list_training, keep_prob: 0,IsTraining:False}))
+            #y_true=label_list_test
+            print("predict of training:")
+            print(y_pred_training)
+            print("True of training:")
+            print(y_true_training)
+            print("Accuracy of training", sk.metrics.accuracy_score(y_true_training, y_pred_training))
+            print("Precision of training", sk.metrics.precision_score(y_true_training, y_pred_training))
+            print("Recall of training", sk.metrics.recall_score(y_true_training, y_pred_training))
+            print("f1_score of training", sk.metrics.f1_score(y_true_training, y_pred_training))
+
+
             y_pred=[]
             y_true=[]
             for batch_data in iter_sent_dataset(sess, 'data/aimed_cross_validataion*.tfrecords', 128,True,c,True):
