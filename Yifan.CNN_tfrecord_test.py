@@ -342,7 +342,7 @@ if __name__ == '__main__':
     rec, rec_op = tf.metrics.recall(labels=tf.argmax(y_, 1), predictions=y_p)
     pre, pre_op = tf.metrics.precision(labels=tf.argmax(y_, 1), predictions=y_p) 
     
-    cross_validation=1
+    cross_validation=10
     with tf.Session() as sess:
         
 
@@ -385,7 +385,7 @@ if __name__ == '__main__':
             #calculate the training F score
             y_pred_training=[]
             y_true_training=[]
-            for batch_data in iter_sent_dataset(sess, 'data/aimed_cross_validataion*.tfrecords', 128,True,c,True):
+            for batch_data in iter_sent_dataset(sess, 'data/aimed_cross_validataion*.tfrecords', 128,True,c,False):
                 input_data_training,label_list_training=batch_data
                 #one way to calculate precision recall F score
                 y_pred_training+=list(y_p.eval(feed_dict={x: input_data_training, y_: label_list_training, keep_prob: 0,IsTraining:False}))
